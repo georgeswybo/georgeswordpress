@@ -16,13 +16,13 @@
 
 
 
-	- name: Install php extensions
-	  apt: 
-	    name:
-	      - php7.2-gd 
-	      - php-ssh2
-	    state: latest
-	  become: yes
+- name: Install php extensions
+  apt:
+    name:
+      - php7.2-gd
+      - php-ssh2
+    state: latest
+  become: yes
 
 
 	- name: Create mysql database
