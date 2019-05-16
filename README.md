@@ -13,6 +13,10 @@ The variables are now in /vars/main.yml
 
 To connect to the wordpress server, use : http://51.15.89.164
 
+This command install WordPress into my target host:
+$ ansible-playbook playbook.yml -i hosts -u root -K
+
+
 2) TERRAFORM PART
 
 Terraform file: main.tf variables.tf
