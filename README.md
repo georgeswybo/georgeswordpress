@@ -2,6 +2,7 @@ Wordpress project - Cloud Architecture
 
 
 1) ANSIBLE PART
+
 Ansible file: main.yml
 
 The command used to execute main.yml is :
