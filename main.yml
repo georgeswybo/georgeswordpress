@@ -1,4 +1,5 @@
 ---
+#server/tasks/main.yml
 - name: Update apt cache
   apt: update_cache=yes cache_valid_time=3600
   become: yes
@@ -15,7 +16,7 @@
   become: yes
 
 
-
+#php/tasks/main.yml
 - name: Install php extensions
   apt:
     name:
@@ -24,7 +25,7 @@
     state: latest
   become: yes
 
-
+#mysql/tasks/main.yml
 - name: Create mysql database
   mysql_db: name={{ wp_mysql_db }} state=present
   become: yes
@@ -35,8 +36,14 @@
     password={{ wp_mysql_password }}
     priv=*.*:ALL
   become: yes
+  
+#mysql/defaults/main.yml 
+wp_mysql_db: wordpress
+wp_mysql_user: wordpress
+wp_mysql_password: georges
 
 
+#wordpress/tasks/main.yml
 - name: Download WordPress
   get_url:
     url=https://wordpress.org/latest.tar.gz
@@ -70,3 +77,10 @@
     - {'regexp': "define\\('DB_USER', '(.)+'\\);", 'line': "define('DB_USER', '{{wp_mysql_user}}');"}
     - {'regexp': "define\\('DB_PASSWORD', '(.)+'\\);", 'line': "define('DB_PASSWORD', '{{wp_mysql_password}}');"}
   become: yes
+  
+  # handlers file for wordpress -> wordpress/handlers/main.yml
+- name: restart apache
+  service: name=apache2 state=restarted
+  become: yes
+
+
